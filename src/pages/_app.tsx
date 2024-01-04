@@ -1,6 +1,7 @@
 
+import { LitProvider } from '@/context/LitContext'
 import type { AppProps } from 'next/app'
 
 export default function App({ Component, pageProps }: AppProps) {
-  return <Component {...pageProps} />
+  return <LitProvider> <Component {...pageProps} /> </LitProvider>
 }
