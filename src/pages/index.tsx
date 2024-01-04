@@ -2,11 +2,22 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { Inter } from 'next/font/google'
 import { useW3up } from '@/component/useW3up'
+import { useCallback } from 'react'
+import { uploadFile } from '@/lib/fileHelpers'
 
 const inter = Inter({ subsets: ['latin'] })
 
 export default function Home() {
   const w3up = useW3up()
+
+  const doupload = useCallback(async () => {
+    const arr = new Uint8Array([0x68, 0x65, 0x6c, 0x6c, 0x6f]);
+    const blob = new Blob([arr]);
+    const f = new File([blob], "hello.txt");
+    const done = await uploadFile(f);
+    console.log(done)
+  }, [])
+
   return (
     <>
       <Head>
@@ -20,6 +31,7 @@ export default function Home() {
         <p>{
           w3up?.agent.did()
         }</p>
+        <button onClick={doupload}>Upload</button>
       </main>
     </>
   )
